@@ -1,0 +1,42 @@
+.cn-links-character {
+    cursor: pointer;
+}
+
+
+#cn-links-popup {
+    position: fixed;
+    transform: translateX(-50%);
+
+    background: #222;
+    color: white;
+
+    padding: 8px 12px;
+    border-radius: 6px;
+
+    font-size: 24px;
+
+    white-space: pre-line;
+
+    z-index: 999999;
+    pointer-events: none;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cn-links-result {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+    padding: 4px 0;
+}
+
+.cn-links-word {
+    text-align: left;
+    font-size: 24px;
+}
+
+.cn-links-translation {
+    text-align: left;
+    font-size: 16px;
+    color: #aaa;
+}

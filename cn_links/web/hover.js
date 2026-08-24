@@ -1,3 +1,6 @@
+let popup = null;
+
+
 function isChineseCharacter(char) {
     return /[\u3400-\u4DBF\u4E00-\u9FFF]/.test(char);
 }
@@ -16,6 +19,15 @@ function makeCharactersHoverable() {
     }
 
     for (const textNode of textNodes) {
+        const parent = textNode.parentElement;
+
+        if (
+            parent &&
+            parent.closest(".cn-links-character")
+        ) {
+            continue;
+        }
+
         const text = textNode.nodeValue;
 
         if (!text) {
@@ -45,7 +57,10 @@ function makeCharactersHoverable() {
             }
         }
 
-        textNode.parentNode.replaceChild(fragment, textNode);
+        textNode.parentNode.replaceChild(
+            fragment,
+            textNode
+        );
     }
 }
 
@@ -61,27 +76,62 @@ function addCharacterHover(character) {
 }
 
 
-let popup = null;
-
-
 function showPopup(character) {
     hidePopup();
 
     popup = document.createElement("div");
     popup.id = "cn-links-popup";
 
-    popup.textContent = character.textContent;
+    popup.textContent = "Recherche...";
 
     document.body.appendChild(popup);
 
     const rect = character.getBoundingClientRect();
 
     const centerX = rect.left + rect.width / 2;
-
     const topY = rect.bottom + 8;
 
     popup.style.left = `${centerX}px`;
     popup.style.top = `${topY}px`;
+
+    pycmd(
+        `cn-links:${character.textContent}`,
+        (results) => {
+            if (!popup) {
+                return;
+            }
+
+            if (!results || results.length === 0) {
+                popup.textContent = "Aucun résultat";
+                return;
+            }
+
+            displayResults(results);
+        }
+    );
+}
+
+
+function displayResults(results) {
+    popup.innerHTML = "";
+
+    for (const result of results) {
+        const row = document.createElement("div");
+        row.className = "cn-links-result";
+
+        const word = document.createElement("span");
+        word.className = "cn-links-word";
+        word.textContent = result.word;
+
+        const translation = document.createElement("span");
+        translation.className = "cn-links-translation";
+        translation.textContent = result.translation;
+
+        row.appendChild(word);
+        row.appendChild(translation);
+
+        popup.appendChild(row);
+    }
 }
 
 
@@ -92,5 +142,6 @@ function hidePopup() {
     }
 }
 
-
-makeCharactersHoverable();
+window.cnLinksInit = function () {
+    makeCharactersHoverable();
+};

@@ -1,0 +1,9 @@
+{
+    "decks": [
+        "Chinois",
+        "old_Chinois"
+    ],
+    "hanzi_field": "Hanzi",
+    "max_results": 20,
+    "translation_field": "Français"
+}
