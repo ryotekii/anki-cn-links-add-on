@@ -14,6 +14,11 @@ pip install -r requirements-dev.txt
 Aller dans le dossier addons21 de anki et créer un lien symbolique vers cn-links
 ```powershell
 New-Item -ItemType SymbolicLink `
-  -Path "C:\Users\me\AppData\Roaming\Anki2\addons21\cn-links" `
-  -Target "C:\Users\me\anki-cn-links-add-on\cn-links"
+  -Path "C:\Users\me\AppData\Roaming\Anki2\addons21\cn_links" `
+  -Target "C:\Users\me\anki-cn-links-add-on\cn_links"
+```
+
+Pour le débug :
+```bash
+mypy cn_links
 ```
