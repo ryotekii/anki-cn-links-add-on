@@ -42,14 +42,25 @@ def add_reviewer_bootstrap(html, card, context):
     if context not in ("reviewQuestion", "reviewAnswer"):
         return html
 
-    return html + """
+    config = mw.addonManager.getConfig("cn_links")
+    hanzi_field = config["hanzi_field"]
+
+    current_word = card.note()[hanzi_field]
+
+    # Échapper ce qui pourrait poser problème dans JS.
+    import json
+
+    current_word_js = json.dumps(current_word)
+
+    return html + f"""
     <script>
-        onUpdateHook.push(function () {
+        window.cnLinksCurrentWord = {current_word_js};
+
+        onUpdateHook.push(function () {{
             window.cnLinksInit();
-        });
+        }});
     </script>
     """
-
 
 gui_hooks.card_will_show.append(
     add_reviewer_bootstrap
@@ -63,9 +74,14 @@ def on_js_message(handled, message, context):
     if not message.startswith("cn-links:"):
         return handled
 
-    character = message.removeprefix("cn-links:")
+    data = message.removeprefix("cn-links:")
 
-    results = search_character(character)
+    character, current_word = data.split("|", 1)
+
+    results = search_character(
+        character,
+        current_word,
+    )
 
     return True, results
 

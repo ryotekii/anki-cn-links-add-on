@@ -95,7 +95,7 @@ function showPopup(character) {
     popup.style.top = `${topY}px`;
 
     pycmd(
-        `cn-links:${character.textContent}`,
+        `cn-links:${character.textContent}|${window.cnLinksCurrentWord}`,
         (results) => {
             if (!popup) {
                 return;
@@ -117,7 +117,9 @@ function displayResults(results) {
 
     for (const result of results) {
         const row = document.createElement("div");
+
         row.className = "cn-links-result";
+        row.dataset.knowledge = result.knowledge;
 
         const word = document.createElement("span");
         word.className = "cn-links-word";

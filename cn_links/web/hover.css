@@ -25,9 +25,24 @@
 
 .cn-links-result {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 30px;
-    padding: 4px 0;
+    grid-template-columns: 100px auto;
+    column-gap: 20px;
+
+    padding: 4px 8px;
+
+    border-left: 4px solid transparent;
+}
+
+.cn-links-result[data-knowledge="new"] {
+    border-left-color: #e74c3c;
+}
+
+.cn-links-result[data-knowledge="learning"] {
+    border-left-color: #f39c12;
+}
+
+.cn-links-result[data-knowledge="mature"] {
+    border-left-color: #2ecc71;
 }
 
 .cn-links-word {
