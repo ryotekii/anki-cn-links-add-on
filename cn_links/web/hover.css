@@ -7,9 +7,6 @@
     position: fixed;
     transform: translateX(-50%);
 
-    background: #222;
-    color: white;
-
     padding: 8px 12px;
     border-radius: 6px;
 
@@ -21,6 +18,19 @@
     pointer-events: none;
 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cn-links-popup {
+    --popup-bg: #ffffff;
+    --popup-text: #222222;
+
+    background: var(--popup-bg);
+    color: var(--popup-text);
+}
+
+.nightMode .cn-links-popup {
+    --popup-bg: #2f2f2f;
+    --popup-text: #eeeeee;
 }
 
 .cn-links-result {
