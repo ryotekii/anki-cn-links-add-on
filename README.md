@@ -72,13 +72,11 @@ Cet add-on n'est pas encore disponible sur Anki web.
 
 ### Depuis les sources
 
-Téléchargez ou clonez le projet dans le dossier des modules complémentaires d'Anki :
+Téléchargez ou clonez le dossier `cn_links` du projet dans le dossier des modules complémentaires d'Anki :
 
 ```
 %APPDATA%\Anki2\addons21\
 ```
-
-Le dossier de l'add-on doit être nommé `cn_links`.
 
 Redémarrez Anki après l'installation.
 
