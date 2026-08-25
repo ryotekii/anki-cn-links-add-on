@@ -1,4 +1,5 @@
 from aqt import mw
+from anki.utils import strip_html
 
 from anki.consts import (
     QUEUE_TYPE_NEW,
@@ -57,7 +58,8 @@ def search_character(
         for card_id in card_ids:
             card = mw.col.get_card(card_id)
             note = card.note()
-            word = note[hanzi_field]
+            word = strip_html(note[hanzi_field]).strip()
+            translation = strip_html(note[translation_field]).strip()
 
             if current_word and word == current_word:
                 continue
@@ -67,7 +69,7 @@ def search_character(
 
             results_by_word[word] = {
                 "word": word,
-                "translation": note[translation_field],
+                "translation": translation,
                 "knowledge": get_knowledge(card),
                 "priority": priority,
             }
