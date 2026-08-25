@@ -64,10 +64,6 @@ Les champs utilisés pour la recherche et l'affichage peuvent également être c
 `hanzi_field` correspond au champ contenant le mot chinois.
 `translation_field` correspond au champ contenant sa traduction.
 
-## Exemple
-
-à venir
-
 ## Installation
 
 ### Depuis AnkiWeb
