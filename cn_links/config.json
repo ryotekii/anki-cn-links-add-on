@@ -4,6 +4,6 @@
         "old_Chinois":2
     },
     "hanzi_field": "Hanzi",
-    "max_results": 20,
+    "max_results": 10,
     "translation_field": "Français"
 }

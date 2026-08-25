@@ -1,4 +1,5 @@
 from aqt import mw
+
 from anki.consts import (
     QUEUE_TYPE_NEW,
     QUEUE_TYPE_LRN,
@@ -24,7 +25,6 @@ def get_knowledge(card) -> str:
     if card.queue == QUEUE_TYPE_REV:
         if card.ivl >= 21:
             return "mature"
-
         return "learning"
 
     return "new"
@@ -34,21 +34,19 @@ def search_character(
     character: str,
     current_word: str | None = None,
 ) -> list[dict]:
-
     config = get_config()
 
     decks = config["decks"]
     hanzi_field = config["hanzi_field"]
     translation_field = config["translation_field"]
+    max_results = config.get("max_results", 10)
 
     results_by_word = {}
 
-    # On parcourt les paquets dans l'ordre de priorité.
     for deck_name, priority in sorted(
         decks.items(),
         key=lambda item: item[1],
     ):
-
         search_query = (
             f'deck:"{deck_name}" '
             f'{hanzi_field}:*{character}*'
@@ -59,15 +57,11 @@ def search_character(
         for card_id in card_ids:
             card = mw.col.get_card(card_id)
             note = card.note()
-
             word = note[hanzi_field]
 
-            # Ne pas afficher le mot de la carte actuellement étudiée.
             if current_word and word == current_word:
                 continue
 
-            # Si ce mot existe déjà dans un paquet plus prioritaire,
-            # on ne le remplace pas.
             if word in results_by_word:
                 continue
 
@@ -80,7 +74,6 @@ def search_character(
 
     results = list(results_by_word.values())
 
-    # Le caractère seul doit apparaître en premier.
     results.sort(
         key=lambda result: (
             result["word"] != character,
@@ -88,9 +81,9 @@ def search_character(
             result["word"],
         )
     )
+    
+    results = results[:max_results]
 
-    # La priorité est une information interne :
-    # on ne l'envoie pas au JavaScript.
     for result in results:
         del result["priority"]
 
