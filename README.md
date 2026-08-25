@@ -4,6 +4,8 @@
 
 Pendant la révision d'une carte, **cn-links** affiche un popup au survol de chaque caractère du mot. Ce popup présente d'autres mots de votre collection qui utilisent ce caractère, ainsi que leur traduction et leur niveau d'apprentissage.
 
+![alt text](screenshots/dian.png)
+
 ## Fonctionnalités
 
 - Affiche un popup au survol de chaque caractère chinois.
